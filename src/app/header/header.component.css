@@ -1,0 +1,19 @@
+.logo{
+    max-width:300px; 
+    height: 100%;
+}
+
+.nav>li>a{
+    color: #EEE;
+    font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.471;
+}
+
+#nav-logo-text {
+    display: block;
+    text-decoration: none;
+    color: #EEE;
+    margin: auto;
+}

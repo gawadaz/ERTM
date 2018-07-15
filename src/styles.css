@@ -1,1 +1,144 @@
 /* You can add global styles to this file, and also import other style files */
+ /* Global Styles */
+ body {
+    margin-top: 100px;
+    /*background-color: #222;*/
+}
+
+@media(min-width:768px) {
+    body {
+        margin-top: 50px;
+    }
+}
+
+#wrapper {
+    padding-right: 0;
+    
+}
+
+#page-wrapper {
+    width:85%;
+    padding: 0;
+    background-color: #fff;
+    position: fixed;
+        top: 51px;
+}
+
+.huge {
+    font-size: 50px;
+    line-height: normal;
+}
+
+@media(min-width:768px) {
+    #wrapper {
+        /*padding-left: 225px;*/
+        padding-right: 230px;
+    }
+
+    #page-wrapper {
+        padding: 10px;
+    }
+}
+
+.side-nav>a {
+    display: block;
+    padding: 10px 38px 10px 15px;
+    text-decoration: none;
+    color: #FFF;
+}
+/* Side Navigation */
+@media(min-width:768px) {
+    .side-nav {
+        position: fixed;
+        top: 51px;
+        /*left: 225px;
+        width: 225px;
+        margin-left: -225px;*/
+     /*   right: 230px;*/
+        width: 230px;
+       /* margin-right: -230px; */
+        border: none;
+        border-radius: 0;
+        overflow-y: auto;
+        /* background-color: #f2f2f2; */
+        bottom: 0;
+        overflow-x: hidden;
+        padding-bottom: 40px;
+        color: #73879C;
+        background: #2A3F54;
+        font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+        font-size: 13px;
+        font-weight: 400;
+        line-height: 1.471;
+    }
+
+    .side-nav>li>a {
+        width: 230px;
+    }
+
+    .side-nav li a:hover,
+    .side-nav li a:focus {
+        outline: none;
+        background-color: #73879C !important;
+    }
+}
+
+.side-nav>li>ul {
+    padding: 0;
+}
+
+.side-nav>li>ul>li>a {
+    display: block;
+    padding: 10px 15px 10px 38px;
+    text-decoration: none;
+    color: #FFF;
+}
+
+.side-nav>li>ul>li>a:hover {
+    color: #fff;
+}
+
+/* Flot Chart Containers */
+
+.flot-chart {
+    display: block;
+    height: 400px;
+}
+
+.flot-chart-content {
+    width: 100%;
+    height: 100%;
+}
+
+ul{ list-style-type: none; }
+.chart-legend li span{
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-left: 5px;
+    float: left;
+}
+.side-nav .arrow {
+    float: left;
+  }
+.side-nav .fa.arrow:before {
+    content: "\f104";
+}
+.side-nav .active > a > .fa.arrow:before {
+    content: "\f107";
+}
+/*.side-nav .nav-second-level li {
+    border-bottom: none !important;
+}*/
+.side-nav .nav-second-level li a {
+    padding-right: 0px;
+    font-size: 12px;
+}
+
+.navbar-pstoolbox{
+    background-color: #73879C;
+}
+
+.active{
+    background-color: #4d7399;
+}
