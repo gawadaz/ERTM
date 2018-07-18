@@ -1,27 +1,32 @@
+<button class="btn btn-info" (click)="onNext()" [disabled]='!nextKey'>Next</button>
+<button class="btn btn-info" (click)="onPrev()" [disabled]="!prevKeys?.length">Prev</button>
 
-<table class="table table-bordered table-hover">
-    <thead>
-        <tr>
-            <th>ת.ז</th>
-            <th>שם פרטי</th>
-            <th>שם אמצעי</th>
-            <th>שם משפחה</th>
-            <th>מס קלפי</th>
-            <th>מס סידורי</th>
-            <th>הצביע?</th>
-            <th>פוטנציאלי?</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let elector of electors">
-            <td>{{ elector.key }}</td>
-            <td>{{ elector.FirstName }}</td>
-            <td>{{ elector.MidName }}</td>
-            <td>{{ elector.LastName }}</td>
-            <td>{{ elector.Klpe }}</td>
-            <td>{{ elector.SeqNumber }}</td>
-            <td>{{ elector.Vote }}</td>
-            <td>{{ elector.Potential }}</td>
-        </tr>
-    </tbody>
-</table>
+<div class="row">
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>ת.ז</th>
+                <th>שם פרטי</th>
+                <th>שם אמצעי</th>
+                <th>שם משפחה</th>
+                <th>מס קלפי</th>
+                <th>מס סידורי</th>
+                <th>הצביע?</th>
+                <th>פוטנציאלי?</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let elector of electors">
+                <td>{{ elector.key }}</td>
+                <td>{{ elector.FirstName }}</td>
+                <td>{{ elector.MidName }}</td>
+                <td>{{ elector.LastName }}</td>
+                <td>{{ elector.Klpe }}</td>
+                <td>{{ elector.SeqNumber }}</td>
+                <td>{{ elector.Vote }}</td>
+                <td>{{ elector.Potential }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
