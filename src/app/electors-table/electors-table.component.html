@@ -1,0 +1,95 @@
+<i class="fa fa-circle-o-notch fa-3x fa-spin" *ngIf="loadingTable" aria-hidden="true"></i>
+<div class="row" *ngIf="!loadingTable">
+    <div class="btn-group" dropdown [isDisabled]="selectedRows?.length === 0">
+        <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+                aria-controls="dropdown-basic">
+          פעולות 
+          ({{ selectedRows.length }})
+          <span class="caret"></span>
+        </button>
+        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+            role="menu" aria-labelledby="button-basic">
+          <li role="menuitem"><a class="dropdown-item" (click)="setElectorsAsVoted(true)">סמן שהצביע</a></li>
+          <li role="menuitem"><a class="dropdown-item" (click)="setElectorsAsVoted(false)">סמן כלא הצביע</a></li>
+          <li class="divider dropdown-divider"></li>
+          <li role="menuitem"><a class="dropdown-item" (click)="setElectorsAsPotential(true)">סמן כפוטנציאלי</a></li>
+          <li role="menuitem"><a class="dropdown-item" (click)="setElectorsAsPotential(false)">סמן כלא פוטנציאלי</a></li>
+          <li class="divider dropdown-divider"></li>
+          <li role="menuitem"><a class="dropdown-item" (click)="clearSelectedRows()">בטל כל הסימונים</a>
+          </li>
+        </ul>
+      </div>
+</div>
+<br>
+<table class="table table-bordered table-hover" *ngIf="!loadingTable">
+  <thead>
+    <tr>
+      <th *ngFor="let col of columns" [hidden]="col.hidden">{{ col.title }}</th>
+    </tr>    
+  </thead>
+  <tbody>
+    <tr>
+      <td *ngFor="let col of columns" [hidden]="col.hidden">
+          <input type="text" 
+          class="form-control" 
+          id="{{ col.name }}"
+          [placeholder]="col.filtering.placeholder"
+          (input)="onFilterStringChange($event, col.name)"
+          [(ngModel)]="col.filtering.filterString" />
+      </td>      
+    </tr>
+    <tr *ngFor="let row of rows | paginate: { itemsPerPage: 15, currentPage: currPage }" 
+        (dblclick)="onCellClick(row)"
+        (click)="onRowClick(row.key)"
+        [ngClass]="{'selectedRow': selectedRows.indexOf(row.key) > -1}">
+        <td *ngFor="let col of columns" [hidden]="col.hidden">      
+          <span [innerHTML]="row[col.name]"></span>
+        </td>
+    </tr>
+  </tbody>
+</table>
+<pagination-controls class="my-pagination" *ngIf="!loadingTable"
+    (pageChange)="currPage = $event"
+    maxSize="10"
+    directionLinks="true"
+    previousLabel="Previous"
+    nextLabel="Next">
+</pagination-controls>
+
+<!-- Trigger the modal with a button -->
+<button type="button" id="viewScriptDetailsBtn" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{ selectedData.FirstName }} {{ selectedData.LastName }}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <table class="table">
+        <tr>
+            <td>ת.ז:</td>
+            <td>{{ selectedData.key }}</td>
+        </tr>
+        <tr>
+            <td>שם:</td>
+            <td>{{ selectedData.FirstName }} {{ selectedData.MidName }} {{ selectedData.LastName }}</td>
+        </tr>
+        <tr>
+            <td>קלפי:</td>
+            <td>{{ selectedData.Klpe }}</td>
+        </tr>
+        <tr>
+            <td>הצביע?:</td>
+            <td>{{ selectedData.Vote }}</td>
+        </tr>
+        <tr>
+            <td>פוטנציאלי?:</td>
+            <td>{{ selectedData.Potential }}</td>
+            <td><i class="fa fa-heart fa-fw"></i></td>
+        </tr>
+    </table>    
+  </div>
+</ng-template>

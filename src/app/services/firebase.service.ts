@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireList, AngularFireObject } from 'angularfire2/database';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
 export class FirebaseService {
 
   ertmRef: AngularFireList<{}>;
+  countersRef: AngularFireObject<{}>;
   electors: Observable<any[]>;
 
   constructor(private db: AngularFireDatabase) {
@@ -35,4 +36,32 @@ export class FirebaseService {
       );
       return this.electors;
    }
+
+   getAllElectors() {
+    this.ertmRef = this.db.list('codes', ref => ref.orderByChild('FirstName').limitToFirst(100));
+    // this.ertmRef = this.db.list('codes', ref => ref.orderByKey().equalTo('32690893').limitToFirst(numberOfItems + 1));
+      this.electors = this.ertmRef.snapshotChanges().pipe(
+        map(items => {
+          return items.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+        })
+      );
+      return this.electors;
+   }
+
+   updateElectorData(elector: any){
+    this.ertmRef = this.db.list('codes');
+    this.ertmRef.update(elector.key, elector);
+   }
+
+   updateCounters(counter: string, value: number) {
+    this.countersRef = this.db.object('counters');
+    this.countersRef.update({ counter: value });
+   }
+
+   getCounters() {
+    this.countersRef = this.db.object('counters');
+    return this.countersRef.valueChanges();
+   }
+
+
 }

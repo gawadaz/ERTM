@@ -1,0 +1,25 @@
+#viewScriptDetailsBtn{
+    display: none;
+}
+
+code{
+    white-space:pre-wrap;
+    color: blueviolet;
+    font-size: 14px;
+}
+
+p>span {
+    color: blueviolet;
+}
+
+.my-table{
+    width: 50%;
+}
+
+table>thead>tr>th{
+    text-align: center;
+}
+
+.selectedRow {
+    background-color: yellow;
+}
