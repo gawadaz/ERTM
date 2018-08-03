@@ -20,7 +20,7 @@ import { PiChartComponent } from './pi-chart/pi-chart.component';
 import { CounterComponent } from './counter/counter.component';
 
 const appRoutes: Routes = [
-  { path: '', component: PiChartComponent },
+  { path: '', component: DashboardComponent },
   { path: 'electors', component: ElectorsTableComponent },
   { path: 'test2', component: Test2Component }
 ];

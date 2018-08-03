@@ -1,8 +1,8 @@
-<div class="card text-center">
+<div class="card text-center" [ngStyle]="{'background-color': _counter.bgCard }" *ngIf="!isUndefined">
   <div class="vcenter">
-      <i class="fa fa-users fa-3x"></i>
-      <h1 >10,555</h1>
-      <p>ס"כ בוחרים</p>     
-  </div>
-      
+      <!-- <i class="fa fa-users fa-3x"></i> -->
+      <i [ngStyle]="{'color': _counter.iconColor }" class="{{ _counter.icon }}"></i>
+      <h1 [ngStyle]="{'color': _counter.countColor }">{{ _counter.count | number }}</h1>
+      <h3 [ngStyle]="{'color': _counter.nameColor }">{{ _counter.name }}</h3>     
+  </div>      
 </div>

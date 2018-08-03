@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Counter } from '../model/counter';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-counter',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CounterComponent implements OnInit {
 
+  isUndefined = true;
+  _counter: Counter;
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  @Input('counter')
+  set counter(obj: Counter) {
+    this._counter = obj;
+    this.isUndefined = false;
   }
 
 }

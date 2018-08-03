@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, OnDestroy } from '@angular/core';
 import { FirebaseService } from '../services/firebase.service';
 import { Subscription } from 'rxjs';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
@@ -9,8 +9,10 @@ import * as _ from 'lodash';
   templateUrl: './electors-table.component.html',
   styleUrls: ['./electors-table.component.css']
 })
-export class ElectorsTableComponent implements OnInit {
+export class ElectorsTableComponent implements OnInit, OnDestroy {
 
+  countersSubscription: Subscription;
+  counters: {};
   @ViewChild('template') template: TemplateRef<any>;
 
   selectedRows: Array<any> = [];
@@ -39,12 +41,17 @@ export class ElectorsTableComponent implements OnInit {
     {title: 'פוטנציאלי?', name: 'Potential', hidden: false, filtering: {filterString: '', placeholder: 'פוטנציאלי?'}},
 
   ];
-  constructor(private fbService: FirebaseService, private modalService: BsModalService) { }
+  constructor(private fbService: FirebaseService, private modalService: BsModalService) {  }
 
   ngOnInit() {
     this.loadingTable = true;
     this.start = new Date().getTime();
     this.getAllElectors();
+    this.getCounters();
+  }
+
+  ngOnDestroy(): void {
+    this.countersSubscription.unsubscribe();
   }
 
   getAllElectors(): any {
@@ -62,11 +69,11 @@ export class ElectorsTableComponent implements OnInit {
     });
   }
 
-  onFilterStringChange(event, fieldName){
+  onFilterStringChange(event, fieldName) {
     console.log(event + ' ' + fieldName);
     // this.logger.debug(this.component, event + " " + fieldName);
     this.rows = this.data;
-    for (const col of this.columns){
+    for (const col of this.columns) {
       // console.log('col name: ' + col.name);
       // console.log('col filtering: ' + col.filtering.filterString);
       // this.logger.debug(this.component, 'col filtering: ' + col.filtering.filterString);
@@ -114,20 +121,34 @@ export class ElectorsTableComponent implements OnInit {
     const potential = (status) ? 'כן' : 'לא';
     this.selectedRows.forEach(key => {
       const result = this.rows.filter( row => row.key === key );
-      result[0].Potential = potential;
-      this.fbService.updateElectorData(result[0]);
+      if (result[0].Potential !== potential) {
+        result[0].Potential = potential;
+        this.fbService.updateElectorData(result[0]);
+        this.counters['potential'] = (status) ? this.counters['potential'] + 1 : this.counters['potential'] - 1;
+        this.fbService.updateCounters({ 'potential': this.counters['potential']} );
+      }
     });
     this.selectedRows = [];
   }
 
-  setElectorsAsVoted(status: boolean){
+  setElectorsAsVoted(status: boolean) {
     const vote = (status) ? 'כן' : 'לא';
     this.selectedRows.forEach(key => {
       const result = this.rows.filter( row => row.key === key );
-      result[0].Vote = vote;
-      this.fbService.updateElectorData(result[0]);
+      if (result[0].Vote !== vote) {
+        result[0].Vote = vote;
+        this.fbService.updateElectorData(result[0]);
+        this.counters['voted'] = (status) ? this.counters['voted'] + 1 : this.counters['voted'] - 1;
+        this.fbService.updateCounters({ 'voted': this.counters['voted']});
+      }
     });
     this.selectedRows = [];
+  }
+
+  public getCounters(): any {
+    this.countersSubscription = this.fbService.getCounters().subscribe(data => {
+      this.counters = data;
+    });
   }
 
 }

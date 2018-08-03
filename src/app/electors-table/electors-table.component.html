@@ -1,4 +1,6 @@
 <i class="fa fa-circle-o-notch fa-3x fa-spin" *ngIf="loadingTable" aria-hidden="true"></i>
+&nbsp;
+<span *ngIf="loadingTable" [ngStyle]="{ 'font-size': '24px' }">אנא המתן, טוען נתונים</span>
 <div class="row" *ngIf="!loadingTable">
     <div class="btn-group" dropdown [isDisabled]="selectedRows?.length === 0">
         <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"

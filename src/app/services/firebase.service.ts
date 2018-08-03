@@ -38,7 +38,7 @@ export class FirebaseService {
    }
 
    getAllElectors() {
-    this.ertmRef = this.db.list('codes', ref => ref.orderByChild('FirstName').limitToFirst(100));
+    this.ertmRef = this.db.list('codes', ref => ref.orderByChild('FirstName'));
     // this.ertmRef = this.db.list('codes', ref => ref.orderByKey().equalTo('32690893').limitToFirst(numberOfItems + 1));
       this.electors = this.ertmRef.snapshotChanges().pipe(
         map(items => {
@@ -48,14 +48,14 @@ export class FirebaseService {
       return this.electors;
    }
 
-   updateElectorData(elector: any){
+   updateElectorData(elector: any) {
     this.ertmRef = this.db.list('codes');
     this.ertmRef.update(elector.key, elector);
    }
 
-   updateCounters(counter: string, value: number) {
+   updateCounters(counter: any) {
     this.countersRef = this.db.object('counters');
-    this.countersRef.update({ counter: value });
+    this.countersRef.update(counter);
    }
 
    getCounters() {
