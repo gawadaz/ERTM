@@ -1,21 +1,22 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
 import { CookieService } from 'ngx-cookie-service';
-import { UserService } from '../services/user.service';
-import { User } from '../datatypes/user';
+import { UserService } from '../../services/user.service';
+import { User } from '../../datatypes/user';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  selector: 'app-admin-header',
+  templateUrl: './admin-header.component.html',
+  styleUrls: ['./admin-header.component.css']
 })
-export class HeaderComponent implements OnInit {
-  user: User = {
-    email: 'manager'
+export class AdminHeaderComponent implements OnInit {
+
+  user: any = {
+    email: 'admin'
   };
 
-  constructor(private router: Router, public auth: AuthService,
+  constructor(private router: Router, private auth: AuthService,
     private _user: UserService,
     private _cookie: CookieService
   ) { }
@@ -25,7 +26,6 @@ export class HeaderComponent implements OnInit {
     if (uid) {
       const snapshot = await this._user.getUserByUID(uid);
       this.user = <User> snapshot.val();
-      this.user.uid = snapshot.key;
     }
   }
 

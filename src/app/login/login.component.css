@@ -1,0 +1,14 @@
+.row{
+    margin-top: 150px;
+    color: #FFF;
+    font-size: 20px;
+}
+
+#login-form {
+    border: 1px solid #BFBFBF;
+    border-radius: 15px;
+    box-shadow: 10px 10px 5px #aaaaaa;
+    padding: 10px;
+   /* background-color: #73879C; */
+   background-color: #4d7399;
+}

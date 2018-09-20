@@ -1,4 +1,4 @@
-<div class="card text-center" [ngStyle]="{'background-color': _counter.bgCard }" *ngIf="!isUndefined">
+<div class="card text-center" [ngStyle]="{'background-color': _counter.bgCard || '' }" *ngIf="!isUndefined">
   <div class="vcenter">
       <!-- <i class="fa fa-users fa-3x"></i> -->
       <i [ngStyle]="{'color': _counter.iconColor }" class="{{ _counter.icon }}"></i>

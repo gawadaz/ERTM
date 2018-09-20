@@ -1,6 +1,7 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import * as cors from 'cors';
+import { user } from 'firebase-functions/lib/providers/auth';
 const corsHandler = cors({origin: true});
 
 admin.initializeApp();
@@ -12,6 +13,29 @@ admin.initializeApp();
 // export const helloWorld = functions.https.onRequest((request, response) => {
 //  response.send("Hello from Firebase!");
 // });
+
+export const createUserProfile = functions.auth.user().onCreate((_user) => {
+    const memberRef = admin.database().ref('users');
+    memberRef.child(_user.uid).set({
+        displayName: _user.email.split('@')[0],
+        email: _user.email,
+        phoneNumber: _user.phoneNumber || '',
+        role: 'new'
+    })
+    .catch( error => {
+        console.log('oncreate user profile error: ' + error);
+    });
+});
+
+
+export const deleteUserProfile = functions.auth.user().onDelete( _user => {
+    const memberRef = admin.database().ref('users');
+    memberRef.child(_user.uid).remove()
+    .catch( error => {
+        console.log('onDelete user profile error: ' + error);
+    });
+});
+
 
 export const countTotalelectors = functions.https.onRequest((request, response) => {
 

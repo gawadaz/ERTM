@@ -1,0 +1,46 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4" id="login-form">
+          <h1 style="text-align: center;">הוספת משתמש</h1>
+          <form class="form-horizontal" >
+              <div class="form-group">
+                <label class="control-label col-sm-3" for="email">אי-מייל:</label>
+                <div class="col-sm-9">
+                  <input type="email" class="form-control" name="email" id="email" placeholder="הכנס כתובת אי-מייל" [(ngModel)]="email">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-3" for="pwd">סיסמה:</label>
+                <div class="col-sm-9"> 
+                  <input type="password" class="form-control" name="password1" id="pwd1" placeholder="הכנס סיסמה" [(ngModel)]="password1">
+                </div>
+              </div>
+              <div class="form-group">
+                  <label class="control-label col-sm-3" for="pwd">אימות סיסמה:</label>
+                  <div class="col-sm-9"> 
+                    <input type="password" class="form-control" name="password2" id="pwd2" placeholder="הכנס סיסמה" [(ngModel)]="password2">
+                  </div>
+                </div> 
+              <div class="form-group">
+                  <label class="control-label col-sm-3" for="pwd">אימות סיסמה:</label>
+                  <div class="col-sm-9"> 
+                    <select name="selectedRole" [(ngModel)]="selectedRole">
+                      <option *ngFor="let role of roles" [value]="role" [selected]="role == 'admin'">{{ role }}</option>
+                    </select>
+                  </div>
+                </div> 
+              <div class="form-group" *ngIf="showError"> 
+                  <div class="col-sm-offset-3 col-sm-9 alert alert-danger">
+                      <span>{{ errorMsg }}</span>
+                  </div>                  
+                </div>        
+              <div class="form-group"> 
+                <div class="col-sm-offset-3 col-sm-9">
+                  <button type="submit" class="btn btn-lg btn-success" (click)="addUser()">הוסף</button>
+                </div>
+              </div>
+            </form>
+      </div>
+      <div class="col-md-8"></div>
+    </div>
+  </div>

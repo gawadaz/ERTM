@@ -1,0 +1,50 @@
+<div class="row">
+    <h1>רשימת משתמשים</h1>
+    <table class="table table-bordered" >
+      <thead>
+        <tr>
+          <th class="text-center">אי-מייל</th>
+          <th class="text-center">הרשאות</th>
+          <th class="text-center">פעולות</th>
+        </tr>
+      </thead>
+      <tbody style="text-align: center">
+        <tr *ngFor="let user of users">
+          <td>{{ user.email }}</td>
+          <td>{{ user.role }}</td>
+          <td>
+              <button class="btn btn-info" (click)="openModal(template, user)"><span class="glyphicon glyphicon-pencil"></span></button> 
+              &nbsp;
+              <button class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+  
+  <!-- Modal -->
+  <ng-template #template>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">עדכון פרטים</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form class="form-horizontal" >
+              <div class="form-group">
+                <label class="control-label col-sm-3" for="email">הרשאות:</label>
+                <div class="col-sm-9">
+                    <select name="selectedRole" [(ngModel)]="selectedUser.role">
+                      <option *ngFor="let role of roles" [value]="role" [selected]="role == selectedUser.role">{{ role }}</option>
+                    </select>
+                </div>
+              </div>
+              <div class="form-group"> 
+                <div class="col-sm-offset-3 col-sm-9">
+                  <button type="submit" class="btn btn-lg btn-success" (click)="updateUser()">הוסף</button>
+                </div>
+              </div>
+          </form>
+      </div>
+    </ng-template>

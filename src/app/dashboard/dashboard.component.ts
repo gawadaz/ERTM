@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FirebaseService } from '../services/firebase.service';
 import * as _ from 'lodash';
 import { Counter } from '../model/counter';
 import { CounterComponent } from '../counter/counter.component';
+import { Subscription } from 'rxjs/internal/Subscription';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
 
+  counterssubscription: Subscription;
   // Pie
   public potentialChartLabels: string[] = ['פוטנציאלי %', 'לא פוטנציאלי %'];
   public potentialChartData: number[] = [50, 300];
@@ -25,6 +27,10 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.getCounters();
+  }
+
+  ngOnDestroy(): void {
+    this.counterssubscription.unsubscribe();
   }
 
   // events
@@ -59,7 +65,7 @@ export class DashboardComponent implements OnInit {
   }
 
   public getCounters(): any {
-    this.fbService.getCounters().subscribe(data => {
+    this.counterssubscription = this.fbService.getCounters().subscribe(data => {
       console.log('data: ' + JSON.stringify(data));
       console.log('total: ' + data['total']);
       this.counters = data;

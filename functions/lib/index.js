@@ -11,6 +11,25 @@ admin.initializeApp();
 // export const helloWorld = functions.https.onRequest((request, response) => {
 //  response.send("Hello from Firebase!");
 // });
+exports.createUserProfile = functions.auth.user().onCreate((_user) => {
+    const memberRef = admin.database().ref('users');
+    memberRef.child(_user.uid).set({
+        displayName: _user.email.split('@')[0],
+        email: _user.email,
+        phoneNumber: _user.phoneNumber || '',
+        role: ''
+    })
+        .catch(error => {
+        console.log('oncreate user profile error: ' + error);
+    });
+});
+exports.deleteUserProfile = functions.auth.user().onDelete(_user => {
+    const memberRef = admin.database().ref('users');
+    memberRef.child(_user.uid).remove()
+        .catch(error => {
+        console.log('onDelete user profile error: ' + error);
+    });
+});
 exports.countTotalelectors = functions.https.onRequest((request, response) => {
     const codesRef = admin.database().ref('codes');
     const countersRef = admin.database().ref('counters');

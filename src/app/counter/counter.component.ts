@@ -10,7 +10,7 @@ import * as _ from 'lodash';
 export class CounterComponent implements OnInit {
 
   isUndefined = true;
-  _counter: Counter;
+  _counter = new Counter();
 
   constructor() { }
 

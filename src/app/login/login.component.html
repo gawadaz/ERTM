@@ -1,0 +1,28 @@
+<div class="container" *ngIf="showLoginForm">
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6" id="login-form">
+        <h1 style="text-align: center;">ERTM</h1>
+        <form class="form-horizontal" >
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="email">אי-מייל:</label>
+              <div class="col-sm-10">
+                <input type="email" class="form-control" name="email" id="email" placeholder="הכנס כתובת אי-מייל" [(ngModel)]="email">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="pwd">סיסמה:</label>
+              <div class="col-sm-10"> 
+                <input type="password" class="form-control" name="password" id="pwd" placeholder="הכנס סיסמה" [(ngModel)]="password">
+              </div>
+            </div>          
+            <div class="form-group"> 
+              <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-lg btn-success" (click)="login()">כניסה</button>
+              </div>
+            </div>
+          </form>
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+</div>

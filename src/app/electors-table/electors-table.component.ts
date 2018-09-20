@@ -52,6 +52,7 @@ export class ElectorsTableComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.countersSubscription.unsubscribe();
+    this.electorsSubscription.unsubscribe();
   }
 
   getAllElectors(): any {
